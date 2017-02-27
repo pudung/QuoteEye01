@@ -46,7 +46,7 @@ def findnickname(text):
 
 
 STRING = article_text3
-print(STRING)
+
 
 #STRING = '더불어민주당 김재인 ' \
 #        '전 대표는 25일 "평창동계올림픽이 북한의 참여로 평화의 상징이 된다면 올림픽 성공에도 도움이 되고 꽉 막힌 남북관계를 풀어내는 계기가 될 것"이라고 말했다.'
