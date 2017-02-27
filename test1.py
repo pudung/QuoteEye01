@@ -2,7 +2,8 @@
 # created by Kelly 2017-2-27
 
 
-from mystuff.WebCrawler.quote import article_text3
+
+from mystuff.QuoteCrawl.quote import article_text3
 
 
 def findvalue(STRING, aSub, aStart, bSub):
