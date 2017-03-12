@@ -2,20 +2,30 @@
 # created by Kelly 2017-2-27
 
 
+
 import pymysql
 
-# 1. 연결: MySQL connection // mysql cmd 에서 정보 확인.
-from mystuff.WebCrawler.quote import index_tuple
+# charset 변경
 
-conn = pymysql.connect(user="root", passwd="kelly1994", charset='utf8')
+cnx = pymysql.connect(user='kelly', password='kelly1994',
+                              host='insighteye.cqsjnckwggck.ap-northeast-2.rds.amazonaws.com',
+                              database='QuoteEye',charset='utf8')
+cnx.close()
+
+print("start")
+
+# 1. 연결: MySQL connection // mysql cmd 에서 정보 확인.
+#from mystuff.WebCrawler.quote import index_tuple
+
+# quote eyes 서버 접속
 
 # 2. Connection 으로 부터 Cursor 생성
 
 try:
-    cursor = conn.cursor()
+    cursor = cnx.cursor()
 
     # 3. SQL문 실행
-    cursor.execute("use articlescraper")
+    cursor.execute("use QuoteEye")
     cursor.execute("show tables")
 
 
@@ -31,9 +41,11 @@ try:
 
 finally:
     cursor.close()
-    conn.close()
+    cnx.close()
 
     # 5. disconnect from server
+
+
 
 
 # 마지막 인용문의 튜플만 출력됨.
