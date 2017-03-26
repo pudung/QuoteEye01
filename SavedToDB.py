@@ -2,17 +2,17 @@
 # created by Kelly 2017-2-27
 
 
-
 import pymysql
 
 # charset 변경
 
 cnx = pymysql.connect(user='kelly', password='kelly1994',
-                              host='insighteye.cqsjnckwggck.ap-northeast-2.rds.amazonaws.com',
-                              database='QuoteEye',charset='utf8')
-cnx.close()
+                              host='insighteye.cqsjnckwggck.ap-northeast-2.rds.amazonaws.com',port=3309,
+                              database='QuoteEye',charset='utf8',)
+
 
 print("start")
+
 
 # 1. 연결: MySQL connection // mysql cmd 에서 정보 확인.
 #from mystuff.WebCrawler.quote import index_tuple
@@ -23,11 +23,12 @@ print("start")
 
 try:
     cursor = cnx.cursor()
-
+    print("1")
     # 3. SQL문 실행
     cursor.execute("use QuoteEye")
+    print("2")
     cursor.execute("show tables")
-
+    print("3")
 
     # 4. 데이터 fetch
     data2 = cursor.fetchall()
@@ -35,18 +36,13 @@ try:
     # 5. articlescraper column 프린트
     print("Databases are: %s" % [data2])
 
-    #data = cursor.fetchone()
-    #print("Database version is : %s" % data)
 
 
 finally:
+    
     cursor.close()
+
     cnx.close()
 
     # 5. disconnect from server
 
-
-
-
-# 마지막 인용문의 튜플만 출력됨.
-print(index_tuple)
