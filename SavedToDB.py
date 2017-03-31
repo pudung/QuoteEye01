@@ -1,8 +1,9 @@
 # 결과값 DB에 넣을 수 있는 형태로 만든 담에 Give to M.S
 # created by Kelly 2017-2-27
 
-
 import pymysql
+
+from mystuff.WebCrawler import quote3
 
 # charset 변경
 
@@ -11,30 +12,35 @@ cnx = pymysql.connect(user='kelly', password='kelly1994',
                               database='QuoteEye',charset='utf8',)
 
 
-print("start")
+quote = quote3.quote
 
-
-# 1. 연결: MySQL connection // mysql cmd 에서 정보 확인.
-#from mystuff.WebCrawler.quote import index_tuple
-
-# quote eyes 서버 접속
-
-# 2. Connection 으로 부터 Cursor 생성
+#print("quote:",quote)
 
 try:
     cursor = cnx.cursor()
-    print("1")
-    # 3. SQL문 실행
+
     cursor.execute("use QuoteEye")
-    print("2")
+
     cursor.execute("show tables")
-    print("3")
 
-    # 4. 데이터 fetch
-    data2 = cursor.fetchall()
 
-    # 5. articlescraper column 프린트
-    print("Databases are: %s" % [data2])
+# Sidx, Eidx 시작 인덱스, 끝인덱스 가져오기
+
+    cursor.execute("SELECT Art_ID, URL FROM Article")
+
+    row = cursor.fetchone()
+
+    print(row[0],row[1])
+
+
+    sql = """INSERT INTO Quote(Quote, Sidx, Eidx, Art_ID, Nm_ID, Ms_ID) VALUES (%s, %s, %s, %s,%s, %s)"""
+
+    print(sql, %(Quote, Sidx, Eidx, Art_ID, Nm_ID, Ms_ID))
+
+
+    cursor.execute(sql,(quote,1,2,row[0],"null","null"))
+
+    cnx.commit()
 
 
 
